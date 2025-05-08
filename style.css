@@ -1,0 +1,141 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 300px;
+  background: #2a2a2a;
+  color: white;
+  padding: 2rem;
+  position: fixed;
+  height: 100vh;
+}
+
+.name {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.credentials {
+  color: #888;
+  margin-bottom: 2rem;
+}
+
+.separator {
+  height: 2px;
+  background: #444;
+  margin: 2rem 0;
+}
+
+/* Projects Grid */
+.projects {
+  flex: 1;
+  margin-left: 300px;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.project-btn {
+  background: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  text-align: left;
+}
+
+.project-btn:hover {
+  transform: translateY(-5px);
+}
+
+.project-img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+/* Project Detail */
+.project-detail {
+  display: none;
+  margin-left: 300px;
+  padding: 2rem;
+}
+
+.back-btn {
+  background: #2a2a2a;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.code-area {
+  background: #1e1e1e;
+  color: #d4d4d4;
+  padding: 1rem;
+  border-radius: 4px;
+  font-family: monospace;
+  white-space: pre-wrap;
+}
+
+.output-gallery {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+}
+
+@media (max-width: 768px) {
+  body {
+      flex-direction: column;
+  }
+  .sidebar {
+      position: static;
+      width: 100%;
+      height: auto;
+  }
+  .projects,
+  .project-detail {
+      margin-left: 0;
+  }
+}
+
+.detail-section {
+  margin: 2rem 0;
+}
+
+.detail-section h3 {
+  color: #2a2a2a;
+  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 0.5rem;
+}
+
+.output-area {
+  background: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 4px;
+  white-space: pre-wrap;
+  font-family: 'Courier New', Courier, monospace;
+  line-height: 1.5;
+}

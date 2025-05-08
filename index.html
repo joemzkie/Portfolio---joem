@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Portfolio - Joem</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="sidebar">
+        <h1 class="name">Dioso, Jose Emmanuel</h1>
+        <div class="credentials">
+            <p>CAVITE STATE UNIVERSITY CCAT CAMPUS</p>
+            <p>3RD Year Undergrad</p>
+            <p>joemdioso@gmail.com</p>
+        </div>
+        <div class="separator"></div>
+    </div>
+
+    <div class="projects" id="projects">
+        <button class="project-btn" data-project="1">
+            <img src="images/output1.png" class="project-img" alt="Project 1">
+            <h3>Personalized Banking System using c++</h3>
+        </button>
+        <button class="project-btn" data-project="2">
+            <img src="images/output2.png" class="project-img" alt="Project 2">
+            <h3>Bank transaction system using linked list in c++</h3>
+        </button>
+    </div>
+
+<div class="project-detail" id="projectDetail">
+    <button class="back-btn" onclick="showProjectList()">← Back</button>
+    <h1 id="projectTitle"></h1>
+    <div class="detail-section">
+        <h3>Description</h3>
+        <p id="projectDescription" class="description"></p>
+    </div>
+    <div class="detail-section">
+        <h3>Expected Output</h3>
+        <pre class="output-area" id="projectOutput"></pre>
+    </div>
+    <div class="detail-section">
+        <h3>Source Code</h3>
+        <pre class="code-area" id="sourceCode"></pre>
+    </div>
+</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
