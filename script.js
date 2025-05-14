@@ -350,6 +350,35 @@ void backtrack(){
 }
 }
 `
+  },
+  3: {
+      title: "Calculator app using Java Swing",
+      description: "A Calculator app that can solve numbers with integers.",
+      output: [
+        "A calculator app that shows UI", 
+      ],
+      code: `//Computation function 
+      private void equalActionPerformed(java.awt.event.ActionEvent evt) {                                      
+        textResult.setText(textResult.getText()+" = ");
+        
+        String str = textResult.getText();
+        String[] substr = str.split("\\s+");
+        float num1 = Float.parseFloat(substr[0]);
+        float num2 = Float.parseFloat(substr[2]);
+        if(flag == 1){
+            textResult.setText(textResult.getText()+" "+(num1+num2));
+        }
+        else if(flag == 2){
+            textResult.setText(textResult.getText()+" "+(num1-num2));
+        }
+        else if(flag == 3){
+            textResult.setText(textResult.getText()+" "+(num1/num2));
+        }
+        else if(flag == 5){
+            textResult.setText(textResult.getText()+" "+(num1*num2));
+        }
+    }`
+    
   }
 };
 
