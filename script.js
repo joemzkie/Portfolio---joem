@@ -25,207 +25,147 @@ const projects = {
       ],
       code: `#include <iostream>
 #include <string>
+#include <cstring>
+#include <cctype>
 using namespace std;
 
-// Global variables
-int control = 0;                        // User counter
-int balance[10] = {};                   // Account balances
-int depositMoney[10] = {};              // Deposit records
-string userArray[10] = {};              // Usernames storage
-string nameArray[10] = {};              // Full names storage
-string passArray[10] = {};              // Passwords storage
+struct data{
+    char username[20];
+    char password[20];
+    char fullname[20];
+    float balance;
+};
 
-// Function prototypes
-bool checkUsername(string userName);
-void registerUser();
-void loginUser();
-void bankingMenu(int userIndex);
-void deposit(int userIndex);
-void withdraw(int userIndex);
-void viewBalance(int userIndex);
+data info[3];
+int counts = 0;
+void registerUser(); void login(); void BankingMenu(int i);
 
-int main() {
-    int mainChoice = 0;
+int main(){
 
-    while(true) {
-        system("cls");
-        cout << "=== BANKING SYSTEM MAIN MENU ===" << endl;
-        cout << "1. Register" << endl;
-        cout << "2. Login" << endl;
-        cout << "3. Exit" << endl;
-        cout << "Enter your choice: ";
-        cin >> mainChoice;
-        cin.ignore();
-
-        switch(mainChoice) {
-            case 1:
-                registerUser();
-                break;
-            case 2:
-                loginUser();
-                break;
-            case 3:
-                cout << "Exiting system. Goodbye!" << endl;
-                return 0;
-            default:
-                cout << "Invalid choice! Please try again." << endl;
-                system("pause");
-        }
-    }
-}
-
-// Check if username already exists
-bool checkUsername(string userName) {
-    for(int i = 0; i < control; i++) {
-        if(userName == userArray[i]) {
-            return true;
-        }
-    }
-    return false;
-}
-
-// User registration function
-void registerUser() {
+    while(true){
+     int ch;
     system("cls");
-    if(control >= 10) {
-        cout << "System maximum capacity reached!" << endl;
-        system("pause");
-        return;
+    cout << "1. login\n2. register\n0. exit\nEnter choice: ";
+    cin >> ch;
+
+    switch(ch){
+    case 1:
+        login();
+        break;
+    case 2:
+        registerUser();
+        break;
+    default:
+        cout << "\nInvalid choice!\n";
+        return 0;
     }
-
-    string fullName, userName, passWord;
-    cout << "=== REGISTRATION ===" << endl;
-
-    cout << "Enter full name: ";
-    getline(cin, fullName);
-    cout << "Enter username: ";
-    getline(cin, userName);
-    cout << "Enter password: ";
-    getline(cin, passWord);
-
-    if(checkUsername(userName)) {
-        cout << "Username already exists!" << endl;
-    } else {
-        // Store user information
-        userArray[control] = userName;
-        nameArray[control] = fullName;
-        passArray[control] = passWord;
-        control++;
-        cout << "Registration successful!" << endl;
-    }
-    system("pause");
+}
 }
 
-// User login function
-void loginUser() {
+void registerUser(){
     system("cls");
-    if(control == 0) {
-        cout << "No users registered yet!" << endl;
+    if(counts == 3){
+        cout << "User limit has been reached!";
         system("pause");
-        return;
     }
-
-    string userName, passWord;
-    cout << "=== LOGIN ===" << endl;
-    cout << "Enter username: ";
-    getline(cin, userName);
-    cout << "Enter password: ";
-    getline(cin, passWord);
-
-    // Check credentials
-    for(int i = 0; i < control; i++) {
-        if(userName == userArray[i] && passWord == passArray[i]) {
-            cout << "Login successful!" << endl;
+    char tempuser[20];
+    char temppass[20];
+    char tempname[20];
+    cin.ignore();
+    cout << "Enter Fullname: ";
+    cin.getline(tempname, 20);
+    cout << "Enter Username: ";
+    cin.getline(tempuser, 20);
+    cout << "Enter Password: ";
+    cin.getline(temppass, 20);
+    for(int i = 0; i < counts; i++){
+        if(strcmp(info[i].username, tempuser)==0){
+            cout << "Username has been used!\n";
             system("pause");
-            bankingMenu(i);
             return;
         }
     }
+    strcpy(info[counts].username, tempuser);
+    strcpy(info[counts].password, temppass);
+    strcpy(info[counts].fullname, tempname);
+    info[counts].balance = 0;
+    counts++;
 
-    cout << "Invalid credentials!" << endl;
+    cout << "Registered successfully!\n";
     system("pause");
 }
-
-// Banking operations menu
-void bankingMenu(int userIndex) {
-    int choice = 0;
-
-    while(true) {
-        system("cls");
-        cout << "=== BANKING MENU ===" << endl;
-        cout << "Welcome, " << nameArray[userIndex] << "!" << endl;
-        cout << "1. View Balance" << endl;
-        cout << "2. Deposit Money" << endl;
-        cout << "3. Withdraw Money" << endl;
-        cout << "0. Logout" << endl;
-        cout << "Enter your choice: ";
-        cin >> choice;
-        cin.ignore();
-
-        switch(choice) {
-            case 1:
-                viewBalance(userIndex);
-                break;
-            case 2:
-                deposit(userIndex);
-                break;
-            case 3:
-                withdraw(userIndex);
-                break;
-            case 0:
-                cout << "Logging out..." << endl;
-                system("pause");
-                return;
-            default:
-                cout << "Invalid choice!" << endl;
-                system("pause");
+void login(){
+    if(counts == 0){
+        cout << "No accounts yet!\n";
+        system("pause");
+    }
+    else{
+    char tempuser[20];
+    char temppass[20];
+    cin.ignore();
+    cout << "Enter Username: ";
+    cin.getline(tempuser, 20);
+    cout << "Enter Password: ";
+    cin.getline(temppass, 20);
+    for(int i = 0; i < counts; i++){
+        if(strcmp(info[i].username, tempuser)==0 && strcmp(info[i].password, temppass)==0){
+            BankingMenu(i);
+            return;
         }
     }
+    cout << "Invalid Username/Password";
+    return;
 }
-
-// Deposit function
-void deposit(int userIndex) {
+}
+void BankingMenu(int i){
+    bool logined = true;
+    while(logined){
     system("cls");
-    int amount;
-    cout << "=== DEPOSIT ===" << endl;
-    cout << "Enter amount to deposit: $";
-    cin >> amount;
-    cin.ignore();
-
-    if(amount > 0) {
-        depositMoney[userIndex] += amount;
-        cout << "Successfully deposited $" << amount << endl;
-    } else {
-        cout << "Invalid amount!" << endl;
+    int ch;
+    float deposit;
+    float withdraw;
+    cout << "=====Menu=====\n";
+    cout << "Welcome " << info[i].fullname << "!\n";
+    cout << "1. Deposit\n2.Withdraw\n3.View balance\n0. logout\nEnter choice: ";
+    cin >> ch;
+    switch(ch){
+    case 1:
+        cout << "Enter amount to deposit: ";
+        cin >> deposit;
+        if(deposit <= 0){
+            cout << "Invalid deposit!" << endl;
+            system("pause");
+        }
+        else{
+            info[i].balance += deposit;
+            cout << "Deposit successfully" << endl;
+            system("pause");
+        }
+        break;
+     case 2:
+         cout << "Enter amount to withdraw: ";
+        cin >> withdraw;
+        if(withdraw > info[i].balance){
+            cout << "Invalid withdraw!" << endl;
+            system("pause");
+        }
+        else{
+            info[i].balance -= withdraw;
+            cout << "Deposit successfully" << endl;
+            system("pause");
+        }
+        break;
+     case 3:
+         cout << "Balance: " << info[i].balance << endl;
+         system("pause");
+        break;
+     case 0:
+         logined = false;
+        break;
     }
-    system("pause");
+}
 }
 
-// Withdraw function
-void withdraw(int userIndex) {
-    system("cls");
-    int amount;
-    cout << "=== WITHDRAW ===" << endl;
-    cout << "Enter amount to withdraw: $";
-    cin >> amount;
-    cin.ignore();
-
-    if(amount > 0 && amount <= depositMoney[userIndex]) {
-        depositMoney[userIndex] -= amount;
-        cout << "Successfully withdrew $" << amount << endl;
-    } else {
-        cout << "Invalid amount or insufficient balance!" << endl;
-    }
-    system("pause");
-}
-
-// Balance checking function
-void viewBalance(int userIndex) {
-    system("cls");
-    cout << "=== ACCOUNT BALANCE ===" << endl;
-    cout << "Current balance: $" << depositMoney[userIndex] << endl;
-    system("pause");
-}
 `
   },
   2: {
