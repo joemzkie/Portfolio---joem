@@ -1,9 +1,9 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <sstream>
-#include <vector>
-#include <algorithm>
+#include <iostream>//standard header
+#include <fstream>//file stream header
+#include <string>//string header
+#include <sstream>//string stream header used to read the files when called by id
+#include <vector>//vector header used to differentiate value from string stream
+#include <algorithm>//sorting features
 
 using namespace std;
 
@@ -18,12 +18,12 @@ Items itemsale[100];//array use to store memory temporarily
 int ctr = 0;
 
 bool compareByQuantity(const Items &a, const Items &b) {//this is the sorting function organize prices by descending order
-    return a.itemQuantity > b.itemQuantity;
+    return a.itemQuantity > b.itemQuantity; //this is intro sort with 0(n log n) time complexity
 }
 
 bool parseLine(const string& line, Items& item) {//the function executed to find the id of item to manipulate
     if (line.empty()) return false; //if id not found return false
-    //tokens refers to spaces or tabs that seperate each individual value
+    //tokens refers to spaces or tabs that separate each individual value
     vector<string> tokens;
     string token;
     stringstream ss(line);
@@ -167,6 +167,7 @@ void confirmSale() {//confirming the sale after adding the items
     ofstream fout("temp.txt");
     string line;
 
+    //This is the operation to retrieve and manipulate the data and put it back again
     while (getline(fin, line)) {
         Items item;
         if (parseLine(line, item)) {
@@ -195,7 +196,7 @@ void confirmSale() {//confirming the sale after adding the items
     }
 
     salesFile << "=== TRANSACTION ===\n";
-    for (int i = 0; i < ctr; i++) {
+    for (int i = 0; i < ctr; i++) {//to loop each item bought
         salesFile << itemsale[i].itemID << " | " << itemsale[i].itemName
                   << " | Qty:" << itemsale[i].itemQuantity
                   << " | Unit Price:$" << itemsale[i].itemPrice
@@ -242,6 +243,7 @@ void posale() {//This is the sale menu Point of sale(posale)
                 buffer();
                 break;
             case 0:
+                buffer();
                 return;
             default:
                 cout << "Invalid choice!\n";
