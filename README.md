@@ -5,3 +5,4 @@ I am willing to learn and workhard to improve my programming skills and hopefull
 here are the projects that i've finished: 
 Website copilation of my small projects 
 
+link: https://joemzkie.github.io/Portfolio---joem/
